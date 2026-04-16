@@ -1,25 +1,23 @@
-#!/bin/bash
+name: Build & Push Docker Image
 
-echo "Checking Docker..."
+on:
+  push:
+    branches:
+      - main
 
-if ! command -v docker &> /dev/null
-then
-    echo "Docker not found. Installing..."
-    sudo apt update -y
-    sudo apt install docker.io -y
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    sudo usermod -aG docker ubuntu
-fi
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-echo "Stopping old container..."
-docker stop php-app || true
-docker rm php-app || true
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-echo "Building local Docker image..."
-docker build -t php-ec2-app:latest .
+      - name: Login Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-echo "Running container..."
-docker run -d -p 80:80 --name php-app php-ec2-app:latest
+      - name: Build Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/php-app:latest .
 
-echo "Deployment complete ✔"
+      - name: Push Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/php-app:latest
