@@ -118,7 +118,7 @@
         <!-- Header Section -->
         <div class="status-badge">● System Online</div>
         <h1>EC2 Docker PHP App</h1>
-        <p class="subtitle">This page confirms your PHP application is running successfully inside Docker on EC2.</p>
+        <p class="subtitle">This page confirms your PHP application is running successfully inside Docker on EC2. Last updated: <?php echo date("Y-m-d H:i:s"); ?></p>
 
         <!-- System Info Section -->
         <div class="info-grid">
