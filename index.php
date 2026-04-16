@@ -117,8 +117,8 @@
     <div class="container">
         <!-- Header Section -->
         <div class="status-badge">● System Online</div>
-        <h1>Deployment Successful</h1>
-        <p class="subtitle">Your PHP application is running inside a Docker container on EC2.</p>
+        <h1>EC2 Docker PHP App</h1>
+        <p class="subtitle">This page confirms your PHP application is running successfully inside Docker on EC2.</p>
 
         <!-- System Info Section -->
         <div class="info-grid">
@@ -133,6 +133,10 @@
             <div class="info-card">
                 <h3>Server Time</h3>
                 <p><?php echo date("H:i:s"); ?></p>
+            </div>
+            <div class="info-card">
+                <h3>Host Name</h3>
+                <p><?php echo gethostname(); ?></p>
             </div>
         </div>
 
